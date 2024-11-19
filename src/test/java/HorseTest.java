@@ -1,10 +1,15 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class HorseTest {
 
     @ParameterizedTest
@@ -118,4 +123,34 @@ class HorseTest {
         double checkDistance = horse.getDistance();
         Assertions.assertEquals(expectedDistance, checkDistance);
     }
+
+    @Test
+    @DisplayName("Should verify that getRandomDouble is called with parameters 0.2 and 0.9")
+    void shouldVerifyGetRandomDoubleCalledWithParameters() {
+        MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class);
+        Horse horse = new Horse("Horse", 1, 1);
+        try (horseMockedStatic) {
+            horse.move();
+            horseMockedStatic.verify(() -> Horse.getRandomDouble(0.2d, 0.9d));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {1.2, 2.5, 3.0, 5.1})
+    @DisplayName("Should update distance according to formula")
+    void shouldUpdateDistanceAccordingToFormula(double randomValue) {
+        double initialDistance = 1.0d;
+        double initialSpeed = 1.0d;
+        Horse horse = new Horse("Horse", initialSpeed, initialDistance);
+        MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class);
+        try (horseMockedStatic) {
+            horseMockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9))
+                    .thenReturn(randomValue);
+            horse.move();
+            double checkDistance = horse.getDistance();
+            double expectedDistance = initialDistance + horse.getSpeed() * randomValue;
+            Assertions.assertEquals(expectedDistance, checkDistance);
+        }
+    }
+
 }
