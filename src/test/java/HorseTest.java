@@ -9,16 +9,16 @@ class HorseTest {
 
     @ParameterizedTest
     @NullSource
-    @DisplayName("Should throw IllegalArgumentException if first constructor parameter is null")
-    void shouldThrowIllegalArgumentException_IfFirstConstructorParameterNull(String nameAsNull) {
+    @DisplayName("Should throw IllegalArgumentException if Horse first constructor parameter is null")
+    void shouldThrowIllegalArgumentException_IfHorseFirstConstructorParameterNull(String nameAsNull) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse(nameAsNull, 1, 1));
     }
 
     @ParameterizedTest
     @NullSource
-    @DisplayName("When constructor throws IllegalArgumentException because first value to null then message contains")
-    void whenConstructorThrowsIllegalArgumentExceptionBecauseFirstNull_thenMessageContains(String nameAsNull) {
+    @DisplayName("When Horse constructor throws IllegalArgumentException because first value to null then message contains")
+    void whenHorseConstructorThrowsIllegalArgumentExceptionBecauseFirstNull_thenMessageContains(String nameAsNull) {
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse(nameAsNull, 1, 1));
         String expectedMessage = "Name cannot be null.";
@@ -28,16 +28,16 @@ class HorseTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "\t", "\n", "\r", "\f"})
-    @DisplayName("Should throw an IllegalArgumentException if the first constructor parameter is blank")
-    void shouldThrowIllegalArgumentException_IfFirstConstructorParameterBlank(String nameLike) {
+    @DisplayName("Should throw an IllegalArgumentException if Horse first constructor parameter is blank")
+    void shouldThrowIllegalArgumentException_IfHorseFirstConstructorParameterBlank(String nameLike) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse(nameLike, 1, 1));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "\t", "\n", "\r", "\f"})
-    @DisplayName("When constructor throws IllegalArgumentException because first value to blank then message contains")
-    void whenConstructorThrowsIllegalArgumentExceptionBecauseFirstBlank_thenMessageContains(String nameLike) {
+    @DisplayName("When Horse constructor throws IllegalArgumentException because first value to blank then message contains")
+    void whenHorseConstructorThrowsIllegalArgumentExceptionBecauseFirstBlank_thenMessageContains(String nameLike) {
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse(nameLike, 1, 1));
         String expectedMessage = "Name cannot be blank.";
@@ -46,16 +46,16 @@ class HorseTest {
     }
 
     @Test
-    @DisplayName("Should throw IllegalArgumentException if second constructor parameter is negative")
-    void shouldThrowIllegalArgumentException_IfSecondConstructorParameterNegative() {
+    @DisplayName("Should throw IllegalArgumentException if Horse second constructor parameter is negative")
+    void shouldThrowIllegalArgumentException_IfHorseSecondConstructorParameterNegative() {
         int checkValue = -1;
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse("Horse", checkValue, 1));
     }
 
     @Test
-    @DisplayName("When constructor throws IllegalArgumentException because second value to negative then message contains")
-    void whenConstructorThrowsIllegalArgumentExceptionBecauseSecondNegative_thenMessageContains() {
+    @DisplayName("When Horse constructor throws IllegalArgumentException because second value to negative then message contains")
+    void whenHorseConstructorThrowsIllegalArgumentExceptionBecauseSecondNegative_thenMessageContains() {
         int checkValue = -1;
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse("Horse", checkValue, 1));
@@ -65,16 +65,16 @@ class HorseTest {
     }
 
     @Test
-    @DisplayName("Should throw IllegalArgumentException if third constructor parameter is negative")
-    void shouldThrowIllegalArgumentException_IfThirdConstructorParameterNegative() {
+    @DisplayName("Should throw IllegalArgumentException if Horse third constructor parameter is negative")
+    void shouldThrowIllegalArgumentException_IfHorseThirdConstructorParameterNegative() {
         int checkValue = -1;
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse("Horse", 1, checkValue));
     }
 
     @Test
-    @DisplayName("When constructor throws IllegalArgumentException third second value to negative then message contains")
-    void whenConstructorThrowsIllegalArgumentExceptionBecauseThirdNegative_thenMessageContains() {
+    @DisplayName("When Horse constructor throws IllegalArgumentException third second value to negative then message contains")
+    void whenHorseConstructorThrowsIllegalArgumentExceptionBecauseThirdNegative_thenMessageContains() {
         int checkValue = -1;
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse("Horse", 1, checkValue));
@@ -83,5 +83,39 @@ class HorseTest {
         Assertions.assertEquals(expectedMessage, actualMessage);
     }
 
+    @Test
+    @DisplayName("Should return first constructor parameter Horse")
+    void shouldReturnFirstConstructorParameterHorse() {
+        String expectedName = "Horse";
+        Horse horse = new Horse(expectedName, 1, 1);
+        String checkName = horse.getName();
+        Assertions.assertEquals(expectedName, checkName);
+    }
 
+    @Test
+    @DisplayName("Should return second constructor parameter Horse")
+    void shouldReturnSecondConstructorParameterHorse() {
+        double expectedSpeed = 0.9d;
+        Horse horse = new Horse("Horse", expectedSpeed, 1);
+        double checkSpeed = horse.getSpeed();
+        Assertions.assertEquals(expectedSpeed, checkSpeed);
+    }
+
+    @Test
+    @DisplayName("Should return third constructor parameter Horse")
+    void shouldReturnThirdConstructorParameterHorse() {
+        double expectedDistance = 0.9d;
+        Horse horse = new Horse("Horse", 1, expectedDistance);
+        double checkDistance = horse.getDistance();
+        Assertions.assertEquals(expectedDistance, checkDistance);
+    }
+
+    @Test
+    @DisplayName("Should return zero when initialized with two parameters Horse")
+    void shouldReturnZero_whenInitializedWithTwoParametersHorse() {
+        double expectedDistance = 0;
+        Horse horse = new Horse("Horse", 1);
+        double checkDistance = horse.getDistance();
+        Assertions.assertEquals(expectedDistance, checkDistance);
+    }
 }
