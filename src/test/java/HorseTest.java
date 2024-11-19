@@ -21,9 +21,9 @@ class HorseTest {
     void whenConstructorThrowsIllegalArgumentExceptionBecauseFirstNull_thenMessageContains(String nameAsNull) {
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse(nameAsNull, 1, 1));
-        String actualMassage = "Name cannot be null.";
-        String expectedMassage = exception.getMessage();
-        Assertions.assertEquals(expectedMassage, actualMassage);
+        String expectedMessage = "Name cannot be null.";
+        String actualMessage = exception.getMessage();
+        Assertions.assertEquals(expectedMessage, actualMessage);
     }
 
     @ParameterizedTest
@@ -40,9 +40,9 @@ class HorseTest {
     void whenConstructorThrowsIllegalArgumentExceptionBecauseFirstBlank_thenMessageContains(String nameLike) {
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse(nameLike, 1, 1));
-        String actualMassage = "Name cannot be blank.";
-        String expectedMassage = exception.getMessage();
-        Assertions.assertEquals(expectedMassage, actualMassage);
+        String expectedMessage = "Name cannot be blank.";
+        String actualMessage = exception.getMessage();
+        Assertions.assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
@@ -59,9 +59,9 @@ class HorseTest {
         int checkValue = -1;
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse("Horse", checkValue, 1));
-        String actualMassage = "Speed cannot be negative.";
-        String expectedMassage = exception.getMessage();
-        Assertions.assertEquals(expectedMassage, actualMassage);
+        String expectedMessage = "Speed cannot be negative.";
+        String actualMessage = exception.getMessage();
+        Assertions.assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
@@ -78,8 +78,10 @@ class HorseTest {
         int checkValue = -1;
         Throwable exception = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Horse("Horse", 1, checkValue));
-        String actualMassage = "Distance cannot be negative.";
-        String expectedMassage = exception.getMessage();
-        Assertions.assertEquals(expectedMassage, actualMassage);
+        String expectedMessage = "Distance cannot be negative.";
+        String actualMessage = exception.getMessage();
+        Assertions.assertEquals(expectedMessage, actualMessage);
     }
+
+
 }
